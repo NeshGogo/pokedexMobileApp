@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:pokedex_mobile_app/Pokemon/Bloc/bloc_pokemon.dart';
+import 'package:pokedex_mobile_app/Pokemon/model/pokemon.dart';
 
 class BackRed extends StatelessWidget {
   final double height;
@@ -13,7 +18,6 @@ class BackRed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final widthScreen =MediaQuery.of(context).size.width;
-    // TODO: implement build
     return Container(
       height: height,
       width: widthScreen,

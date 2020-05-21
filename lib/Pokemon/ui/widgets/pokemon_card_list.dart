@@ -13,11 +13,14 @@ class PokemonCardList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {    
-    return ListView(
-      scrollDirection: Axis.vertical,
-      children: pokemons.map((pokemon) {
-        return PokemonCard(pokemon: pokemon, height: 250,);
-      }).toList()
+    return Container(
+        margin: EdgeInsets.only(top:159),
+        child: ListView(
+        scrollDirection: Axis.vertical,
+        children: pokemons.map((pokemon) {
+          return PokemonCard(pokemon: pokemon, height: 170,);
+        }).toList()
+      ),
     );
   }
   

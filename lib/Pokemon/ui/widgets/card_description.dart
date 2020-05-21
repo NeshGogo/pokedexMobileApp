@@ -16,74 +16,96 @@ class CardDescription extends StatelessWidget {
   });
 
   Widget _dimensionsRow(){
-    return Row(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Container(
-          child: Text(
-            'Height: $height',
-            style: TextStyle(
-              color: Colors.amber,
-              fontSize: 17,
-              fontWeight: FontWeight.bold
+        Row(
+          children: <Widget>[
+            Container(    
+              margin: EdgeInsets.only(bottom:5), 
+              child: Text(
+                'Height: ',
+                style: TextStyle(
+                  color: Colors.blueGrey,
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
             ),
-          ),
-        ),
-        Container(          
-          child: Text(
-            'Weight: $weight',
-            style: TextStyle(
-              color: Colors.amber,
-              fontSize: 17,
-              fontWeight: FontWeight.bold
+            Container(     
+              child: Text(
+                '$height',
+                style: TextStyle(
+                  color: Colors.amber,
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
             ),
-          ),
+          ],
         ),
+        Row(
+          children:[
+            Container(     
+                
+              child: Text(
+                'Weight: ',
+                style: TextStyle(
+                  color: Colors.blueGrey,
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+            ),
+            Container(          
+              child: Text(
+                '$weight',
+                style: TextStyle(
+                  color: Colors.amber,
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+            ),
+          ]
+        )
       ],
 
     );
   }
   Widget _pokemonTypeRow(){
-    List<Widget> _pokemonTypeBoxes;
     
-    pokemonTypes.forEach((pokemontype) { 
-      _pokemonTypeBoxes.add(
-        Container(
-          padding: EdgeInsets.all(5),
-          margin: EdgeInsets.only(right:10),
-          decoration: BoxDecoration(
-            color: Colors.blueGrey,
-            border: Border.all(
-              color: Colors.lightBlue,
-              width: 0.1, 
-              style: BorderStyle.solid
-            ),
-            borderRadius: BorderRadius.all(Radius.circular(5))
-          ),
-          child: Text(
-            pokemontype.name,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.lightBlueAccent,
-              fontSize: 17
-            ),
-          ),
-        )
-
-      );
-    });
-
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: _pokemonTypeBoxes
+      children: pokemonTypes.map((pokemontype) {       
+        return Container(
+            padding: EdgeInsets.all(5),
+            margin: EdgeInsets.only(right:10, top: 20 ),
+            decoration: BoxDecoration(
+              color: Colors.blueGrey[50],
+              border: Border.all(
+                color: Colors.blueGrey,
+                width: 2, 
+                style: BorderStyle.solid
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(5))
+            ),
+            child: Text(
+              pokemontype.name,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.lightBlueAccent,
+                fontSize: 17
+              ),
+            ),
+          );
+      }).toList()
     );
   }
   @override
   Widget build(BuildContext context) {
     
-
-    return Column(
+    return Column(  
+        
       children: <Widget>[
         _dimensionsRow(),
         _pokemonTypeRow()

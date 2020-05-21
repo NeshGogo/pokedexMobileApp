@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_mobile_app/Pokemon/model/pokemon.dart';
+import 'package:pokedex_mobile_app/Pokemon/model/pokemon_type.dart';
+import 'package:pokedex_mobile_app/Pokemon/ui/widgets/pokemon_card_list.dart';
 import 'package:pokedex_mobile_app/widgets/back_red.dart';
 import 'package:pokedex_mobile_app/widgets/text_input.dart';
 
@@ -17,6 +20,41 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
+  List<Pokemon> pokemonslist = [
+    Pokemon(
+      id: 132,
+      name: "ditto",
+      photoUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png",
+      weight: 40,
+      height: 3,
+      types: <PokemonType>[ PokemonType(name: "normal")]
+    ),
+    Pokemon(
+      id: 132,
+      name: "ditto",
+      photoUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png",
+      weight: 40,
+      height: 3,
+      types: <PokemonType>[ PokemonType(name: "normal")]
+    ),
+    Pokemon(
+      id: 132,
+      name: "ditto",
+      photoUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png",
+      weight: 40,
+      height: 3,
+      types: <PokemonType>[ PokemonType(name: "normal")]
+    ),
+    Pokemon(
+      id: 132,
+      name: "ditto",
+      photoUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png",
+      weight: 40,
+      height: 3,
+      types: <PokemonType>[ PokemonType(name: "normal")]
+    ),
+  ];
+  
   @override
   Widget build(BuildContext context) {
     final _searchController = TextEditingController();
@@ -24,6 +62,7 @@ class _Home extends State<Home> {
     return Stack(
       children: <Widget>[
         BackRed(title: widget.title, height: 350),
+        PokemonCardList(pokemons: pokemonslist,),
         Container(
           margin: EdgeInsets.only(top:100),
           child: TextInput(
@@ -32,6 +71,7 @@ class _Home extends State<Home> {
             inputType: TextInputType.text,
           ),
         ),
+      
       ],
     );
   }

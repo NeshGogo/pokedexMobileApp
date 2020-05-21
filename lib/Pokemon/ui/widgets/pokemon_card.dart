@@ -5,17 +5,24 @@ import 'card_description.dart';
 import 'circle_card_image.dart';
 
 class PokemonCard extends StatelessWidget {
+  
   final Pokemon pokemon;
+  final double height;
 
   PokemonCard({
     Key key,
-    @override this.pokemon
+    @override this.pokemon,
+    @override this.height,
   });
 
   @override
   Widget build(BuildContext context) {
+    final widthScreen = MediaQuery.of(context).size.width;
     // TODO: implement build
     return Container(
+      height: height,
+      width: widthScreen-10,
+      margin: EdgeInsets.only(right: 5, left: 5),
       padding: EdgeInsets.all(20),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

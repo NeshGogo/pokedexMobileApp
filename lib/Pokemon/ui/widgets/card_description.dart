@@ -26,7 +26,7 @@ class CardDescription extends StatelessWidget {
               child: Text(
                 'Height: ',
                 style: TextStyle(
-                  color: Colors.blueGrey,
+                  color: Color.fromRGBO(206, 204, 204, 8),
                   fontSize: 17,
                   fontWeight: FontWeight.bold
                 ),
@@ -51,7 +51,7 @@ class CardDescription extends StatelessWidget {
               child: Text(
                 'Weight: ',
                 style: TextStyle(
-                  color: Colors.blueGrey,
+                  color: Color.fromRGBO(206, 204, 204, 8),
                   fontSize: 17,
                   fontWeight: FontWeight.bold
                 ),

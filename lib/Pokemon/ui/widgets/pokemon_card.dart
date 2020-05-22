@@ -24,7 +24,7 @@ class PokemonCard extends StatelessWidget {
       width: widthScreen-40,
       margin: EdgeInsets.only(right: 20, left: 20, bottom: 40),
       decoration: BoxDecoration(
-        color: Color.fromRGBO(145, 214, 255, 0.9),
+        color: Color.fromRGBO(150, 60, 60, 0.9),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(5),
           bottomLeft: Radius.circular(5),

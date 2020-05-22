@@ -31,11 +31,11 @@ class _Home extends State<Home> {
     ),
     Pokemon(
       id: 132,
-      name: "ditto",
-      photoUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png",
+      name: "Pikachu",
+      photoUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/25.png",
       weight: 40,
       height: 3,
-      types: <PokemonType>[ PokemonType(name: "normal")]
+      types: <PokemonType>[ PokemonType(name: "Electric")]
     ),
     Pokemon(
       id: 132,

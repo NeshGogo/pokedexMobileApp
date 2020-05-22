@@ -21,7 +21,7 @@ class CircleCardImage extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: Color.fromRGBO(255, 211, 140, 0.7),
+        color: Color.fromRGBO(255, 239, 216, 0.7),
         image: DecorationImage(
           image:NetworkImage(imagePath), 
           fit:BoxFit.fitHeight, 

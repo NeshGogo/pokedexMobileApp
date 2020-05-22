@@ -23,48 +23,53 @@ class PokemonCard extends StatelessWidget {
       height: height,
       width: widthScreen-40,
       margin: EdgeInsets.only(right: 20, left: 20, bottom: 40),
-      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Color.fromRGBO(145, 214, 255, 0.9),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(5),
+          bottomLeft: Radius.circular(5),
+          topRight: Radius.circular(20),
+          bottomRight: Radius.circular(20)
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black54,
             offset: Offset(0, 20),
             blurRadius: 15, 
           )
-        ]
+        ],
+        
       ),
-      child: Column(
-        children: <Widget>[
-            Container(   
-              margin: EdgeInsets.only(bottom:15),       
-              child: Text(
-                pokemon.name.toUpperCase(),
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold
-                ),
-              ),
-            ),
-            Row(
+      child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 CircleCardImage(
                   imagePath: pokemon.photoUrl, 
-                  height: 80, 
-                  width: 80,
+                  height: height, 
+                  width: 150,
                 ),
-              CardDescription(
-                name: pokemon.name, 
-                pokemonTypes: pokemon.types,
-                weight: pokemon.weight, 
-                height: pokemon.height,
+                Column(      
+                  crossAxisAlignment: CrossAxisAlignment.start,           
+                  children: <Widget>[                      
+                  Container(   
+                    margin: EdgeInsets.only(top:10,bottom:15),       
+                    child: Text(
+                      pokemon.name.toUpperCase(),
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                  CardDescription(
+                    name: pokemon.name, 
+                    pokemonTypes: pokemon.types,
+                    weight: pokemon.weight, 
+                    height: pokemon.height,
+                  )
+                ],
               )
-              ],
-            ),
         ],
       )
     );

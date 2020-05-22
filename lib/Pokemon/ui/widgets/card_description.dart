@@ -75,7 +75,7 @@ class CardDescription extends StatelessWidget {
   }
   Widget _pokemonTypeRow(){
     
-    return Row(
+    return Row(      
       children: pokemonTypes.map((pokemontype) {       
         return Container(
             padding: EdgeInsets.all(5),
@@ -105,7 +105,7 @@ class CardDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return Column(  
-        
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         _dimensionsRow(),
         _pokemonTypeRow()

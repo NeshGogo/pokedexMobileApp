@@ -27,7 +27,7 @@ class _Home extends State<Home> {
       photoUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png",
       weight: 40,
       height: 3,
-      types: <PokemonType>[ PokemonType(name: "normal")]
+      types: <PokemonType>[ PokemonType(name: "Normal"), PokemonType(name: "Rock")]
     ),
     Pokemon(
       id: 132,

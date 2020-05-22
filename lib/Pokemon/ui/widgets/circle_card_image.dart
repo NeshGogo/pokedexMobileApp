@@ -16,17 +16,22 @@ class CircleCardImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      margin: EdgeInsets.only(right: 50),
+    return Container(      
+      margin: EdgeInsets.only(right: 20),
       width: width,
       height: height,
       decoration: BoxDecoration(
         color: Color.fromRGBO(255, 211, 140, 0.7),
         image: DecorationImage(
           image:NetworkImage(imagePath), 
-          fit: BoxFit.cover
+          fit:BoxFit.fitHeight, 
         ),
-        shape: BoxShape.circle
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(5),
+          bottomLeft: Radius.circular(5),
+          topRight: Radius.circular(290),
+          bottomRight: Radius.circular(0)
+        ),
       ),
     );
   }

@@ -1,8 +1,7 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:pokedex_mobile_app/Pokemon/model/pokemon.dart';
+import 'package:pokedex_mobile_app/Pokemon/model/pokemon_ability.dart';
 import 'package:pokedex_mobile_app/Pokemon/model/pokemon_type.dart';
 
 
@@ -28,26 +27,33 @@ class PokemonApi {
     return pokemons;
   }
   Pokemon buildPokemon(Map<String, dynamic> json) {   
-    const int startIndex = 31; // according to the URL of API.
+    List<dynamic> pokemonAbilities= json['abilities'];
+    
+    List<dynamic> pokemonTypes= json['types'];
+
     //creating our Pokemon from API data.
     return Pokemon(
       id: json['id'],
       name: json['name'],
       weight: double.parse(json["weight"].toString()),
       height: double.parse(json['height'].toString()),
-      photoUrl: json['name']['front_default'],
-      types: json['types'].map((elementMap) {
+      photoUrl: json['sprites']['front_default'],
+      types: pokemonTypes.map((elementMap) {
         String url = elementMap['type']['url'].toString();
-        int endIndex = url.lastIndexOf('/');        
+        int endIndex = url.lastIndexOf('/');   
+        const int startIndex = 31; // according to the URL of API.     
         return PokemonType(
           id: int.parse(url.substring(startIndex,endIndex)),// capture the index from URL.
           name: elementMap['type']['name'],
         );
       }).toList(),
-      abilities: json['abilities'].map((elementMap) {
+
+      abilities: pokemonAbilities.map((elementMap) {
         String url = elementMap['ability']['url'].toString();
-        int endIndex = url.lastIndexOf('/');        
-        return PokemonType(
+        int endIndex = url.lastIndexOf('/'); 
+        const int startIndex = 34; // according to the URL of API.
+
+        return PokemonAbility(
           id: int.parse(url.substring(startIndex,endIndex)),// capture the index from URL.
           name: elementMap['ability']['name'],
         );

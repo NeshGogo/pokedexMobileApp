@@ -23,62 +23,49 @@ class Home extends StatefulWidget {
 
 class _Home extends State<Home> {
   BlocPokemon blocPokemon;
-  
-  List<Pokemon> pokemonslist = [
-    Pokemon(
-      id: 132,
-      name: "ditto",
-      photoUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png",
-      weight: 40,
-      height: 3,
-      types: <PokemonType>[ PokemonType(name: "Normal"), PokemonType(name: "Rock")]
-    ),
-    Pokemon(
-      id: 132,
-      name: "Pikachu",
-      photoUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/25.png",
-      weight: 40,
-      height: 3,
-      types: <PokemonType>[ PokemonType(name: "Electric")]
-    ),
-    Pokemon(
-      id: 132,
-      name: "ditto",
-      photoUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png",
-      weight: 40,
-      height: 3,
-      types: <PokemonType>[ PokemonType(name: "normal")]
-    ),
-    Pokemon(
-      id: 132,
-      name: "ditto",
-      photoUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png",
-      weight: 40,
-      height: 3,
-      types: <PokemonType>[ PokemonType(name: "normal")]
-    ),
-  ];
-  
+  final _searchController = TextEditingController();
+
+  Widget buildData(AsyncSnapshot<List<Pokemon>> pokemonList){
+      if(pokemonList.hasError || !pokemonList.hasData){
+        return Container();
+      }
+
+      return Stack(
+          children: <Widget>[
+            BackRed(title: widget.title, height: 350),
+            PokemonCardList(pokemons: pokemonList.data,),
+            Container(
+              margin: EdgeInsets.only(top:100),
+              child: TextInput(
+                controller: _searchController,
+                hitText: 'Buscar pokemon...',
+                inputType: TextInputType.text,
+              ),
+            ),
+          
+          ],
+        );
+    }
+
   @override
   Widget build(BuildContext context) {
-    
-    blocPokemon = BlocProvider.of<BlocPokemon>(context);
-    final _searchController = TextEditingController();
-    blocPokemon.getFirstOnehundrePokemons();
-    return Stack(
-      children: <Widget>[
-        BackRed(title: widget.title, height: 350),
-        PokemonCardList(pokemons: pokemonslist,),
-        Container(
-          margin: EdgeInsets.only(top:100),
-          child: TextInput(
-            controller: _searchController,
-            hitText: 'Buscar pokemon...',
-            inputType: TextInputType.text,
-          ),
-        ),
-      
-      ],
+    blocPokemon = BlocProvider.of<BlocPokemon>(context); 
+    return FutureBuilder(
+      future: blocPokemon.getFirstOnehundrePokemons(),
+      builder: (context, AsyncSnapshot<List<Pokemon>> snapshot){        
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return CircularProgressIndicator();
+          case ConnectionState.none:
+            return CircularProgressIndicator();
+          case ConnectionState.active:
+            return buildData(snapshot);
+          case ConnectionState.done: 
+            return buildData(snapshot);   
+          default:
+            return buildData(snapshot);
+        }
+      }
     );
   }
   

@@ -6,7 +6,6 @@ class PokemonRepository {
   
   final PokemonApi _pokemonApi = PokemonApi();
 
-  Future<http.Response> getPokemonByName(String pokemonName) => _pokemonApi.getPokemonByName(pokemonName);
-  Future<http.Response> getPokemonById(int pokemonId) => _pokemonApi.getPokemonById(pokemonId);
+  Future<Pokemon> getPokemonByNameOrId(String nameOrId) => _pokemonApi.getPokemonByNameOrId(nameOrId);
   Future<List<Pokemon>> getFirstOnehundrePokemons() => _pokemonApi.getFirstOnehundrePokemons();
 }

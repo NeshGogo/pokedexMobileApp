@@ -5,6 +5,7 @@ class TextInput extends StatelessWidget {
   final String hitText;
   final TextInputType inputType;
   final TextEditingController controller;
+  final VoidCallback onEditingComplete;
   int maxlines;
 
   TextInput({
@@ -12,6 +13,7 @@ class TextInput extends StatelessWidget {
     @required this.hitText,
     @required this.inputType,
     @required this.controller,
+    @required this.onEditingComplete,
     this.maxlines = 1
   });
 
@@ -21,6 +23,7 @@ class TextInput extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(left:20, right:20),
       child: TextField(
+        onEditingComplete:onEditingComplete ,
         controller: this.controller,
         keyboardType: inputType,
         maxLines: maxlines,

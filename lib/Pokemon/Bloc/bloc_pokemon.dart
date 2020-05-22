@@ -6,10 +6,9 @@ import 'package:pokedex_mobile_app/Pokemon/repository/pokemon_repository.dart';
 class BlocPokemon implements Bloc {
   final PokemonRepository _pokemonRepository = PokemonRepository();
 
-  Future<http.Response> getPokemonByName(String pokemonName) => _pokemonRepository.getPokemonByName(pokemonName);
-  Future<http.Response> getPokemonById(int pokemonId) => _pokemonRepository.getPokemonById(pokemonId);
+  Future<Pokemon> getPokemonByNameOrId(String nameOrId) => _pokemonRepository.getPokemonByNameOrId(nameOrId);
   Future<List<Pokemon>> getFirstOnehundrePokemons() => _pokemonRepository.getFirstOnehundrePokemons();
-  
+
   @override
   void dispose() {
     // TODO: implement dispose

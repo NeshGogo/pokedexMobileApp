@@ -8,13 +8,15 @@ import 'package:pokedex_mobile_app/Pokemon/model/pokemon_type.dart';
 class PokemonApi {
   final _apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
-  Future<http.Response> getPokemonByName(String pokemonName) async{
-    return await http.get(_apiUrl+pokemonName);
+  Future<Pokemon> getPokemonByNameOrId(String nameOrId) async{
+    var response = await http.get('$_apiUrl$nameOrId');
+    if(response.statusCode != 200){
+        throw Exception('Failed to load Pokemons');
+      }      
+    return buildPokemon(json.decode(response.body));
   }
 
-  Future<http.Response> getPokemonById(int pokemonId) async{
-    return await http.get('$_apiUrl$pokemonId');
-  }
+
   Future<List<Pokemon>> getFirstOnehundrePokemons() async{
     List<Pokemon> pokemons = List<Pokemon>();
     for (var pokemonId = 1; pokemonId <= 100; pokemonId++) {      
@@ -26,6 +28,7 @@ class PokemonApi {
     }
     return pokemons;
   }
+
   Pokemon buildPokemon(Map<String, dynamic> json) {   
     List<dynamic> pokemonAbilities= json['abilities'];
     
@@ -58,7 +61,7 @@ class PokemonApi {
           name: elementMap['ability']['name'],
         );
       }).toList()  
-
+      
     );
   }
 }

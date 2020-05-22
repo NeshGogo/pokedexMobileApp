@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:pokedex_mobile_app/Pokemon/Bloc/bloc_pokemon.dart';
 import 'package:pokedex_mobile_app/Pokemon/model/pokemon.dart';
 import 'package:pokedex_mobile_app/Pokemon/model/pokemon_type.dart';
 import 'package:pokedex_mobile_app/Pokemon/ui/widgets/pokemon_card_list.dart';
@@ -20,6 +22,8 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
+  BlocPokemon blocPokemon;
+  
   List<Pokemon> pokemonslist = [
     Pokemon(
       id: 132,
@@ -57,8 +61,10 @@ class _Home extends State<Home> {
   
   @override
   Widget build(BuildContext context) {
+    
+    blocPokemon = BlocProvider.of<BlocPokemon>(context);
     final _searchController = TextEditingController();
-
+    blocPokemon.getFirstOnehundrePokemons();
     return Stack(
       children: <Widget>[
         BackRed(title: widget.title, height: 350),

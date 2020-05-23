@@ -1,5 +1,4 @@
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
-import 'package:http/http.dart' as http;
 import 'package:pokedex_mobile_app/Pokemon/model/pokemon.dart';
 import 'package:pokedex_mobile_app/Pokemon/repository/pokemon_repository.dart';
 

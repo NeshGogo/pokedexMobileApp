@@ -9,7 +9,7 @@ class PokemonApi {
   final _apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
   Future<Pokemon> getPokemonByNameOrId(String nameOrId) async{
-    var response = await http.get('$_apiUrl$nameOrId');
+    var response = await http.get('$_apiUrl${nameOrId.toLowerCase()}');
     if(response.statusCode != 200){
         throw Exception('Failed to load Pokemons');
       }      
@@ -19,7 +19,7 @@ class PokemonApi {
 
   Future<List<Pokemon>> getFirstOnehundrePokemons() async{
     List<Pokemon> pokemons = List<Pokemon>();
-    for (var pokemonId = 1; pokemonId <= 100; pokemonId++) {      
+    for (var pokemonId = 1; pokemonId <= 50; pokemonId++) {      
       var response = await  http.get('$_apiUrl$pokemonId');
       if(response.statusCode != 200){
         throw Exception('Failed to load Pokemons');

@@ -29,6 +29,25 @@ class _Home extends State<Home> {
       _searchController.text = _searchController.text;
     });
   }
+  Widget loadingInterface(){
+    return Stack(
+          children: <Widget>[
+            BackRed(title: widget.title, height: 350),
+            Container(
+              margin: EdgeInsets.only(top:100),
+              child: TextInput(
+                controller: _searchController,
+                hitText: 'Buscar pokemon...',
+                inputType: TextInputType.text,
+                onEditingComplete: (){
+                  _toggleSearchBox();
+                },
+              ),
+            ),
+            Center(child:CircularProgressIndicator()),
+          ],
+        );
+  }
 
   Widget buildData(AsyncSnapshot snapshot){
       List<Pokemon> pokemons = List<Pokemon>();
@@ -96,9 +115,9 @@ class _Home extends State<Home> {
       builder: (context, AsyncSnapshot snapshot){        
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
-            return Center(child:CircularProgressIndicator());
+            return loadingInterface();   
           case ConnectionState.none:
-            return Center(child:CircularProgressIndicator());
+            return loadingInterface();
           case ConnectionState.active:
             return buildData(snapshot);
           case ConnectionState.done: 

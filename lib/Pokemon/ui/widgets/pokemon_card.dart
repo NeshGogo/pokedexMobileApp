@@ -52,12 +52,13 @@ class PokemonCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,           
                   children: <Widget>[                      
                   Container(   
-                    margin: EdgeInsets.only(top:10,bottom:15),       
+                    margin: EdgeInsets.only(top:10,bottom:15),
+                    width: widthScreen-210,       
                     child: Text(
                       pokemon.name.toUpperCase(),
                       style: TextStyle(
                         color: Colors.white70,
-                        fontSize: 25,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold
                       ),
                     ),
@@ -67,6 +68,7 @@ class PokemonCard extends StatelessWidget {
                     pokemonTypes: pokemon.types,
                     weight: pokemon.weight, 
                     height: pokemon.height,
+                    width: widthScreen-210,
                   )
                 ],
               )

@@ -6,13 +6,15 @@ class CardDescription extends StatelessWidget {
   final List<PokemonType> pokemonTypes;
   final double weight;
   final double height;
+  final double width;
 
   CardDescription({
     Key key,
     @override this.name,
     @override this.pokemonTypes,
     @override this.weight,
-    @override this.height
+    @override this.height,
+    @override this.width
   });
 
   Widget _dimensionsRow(){
@@ -27,7 +29,7 @@ class CardDescription extends StatelessWidget {
                 'Height: ',
                 style: TextStyle(
                   color: Color.fromRGBO(206, 204, 204, 8),
-                  fontSize: 17,
+                  fontSize: 12,
                   fontWeight: FontWeight.bold
                 ),
               ),
@@ -37,7 +39,7 @@ class CardDescription extends StatelessWidget {
                 '$height',
                 style: TextStyle(
                   color: Colors.amber,
-                  fontSize: 17,
+                  fontSize: 12,
                   fontWeight: FontWeight.bold
                 ),
               ),
@@ -52,7 +54,7 @@ class CardDescription extends StatelessWidget {
                 'Weight: ',
                 style: TextStyle(
                   color: Color.fromRGBO(206, 204, 204, 8),
-                  fontSize: 17,
+                  fontSize: 12,
                   fontWeight: FontWeight.bold
                 ),
               ),
@@ -62,7 +64,7 @@ class CardDescription extends StatelessWidget {
                 '$weight',
                 style: TextStyle(
                   color: Colors.amber,
-                  fontSize: 17,
+                  fontSize: 12,
                   fontWeight: FontWeight.bold
                 ),
               ),
@@ -94,7 +96,7 @@ class CardDescription extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.lightBlueAccent,
-                fontSize: 17
+                fontSize: 12
               ),
             ),
           );
@@ -107,8 +109,15 @@ class CardDescription extends StatelessWidget {
     return Column(  
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _dimensionsRow(),
-        _pokemonTypeRow()
+        Container(
+          width: width,
+          child:_dimensionsRow(),
+        ),
+        Container(
+          width: width,
+          child:_pokemonTypeRow(),
+        )
+        
       ],
     );
   }

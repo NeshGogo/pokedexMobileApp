@@ -6,7 +6,7 @@ class BlocPokemon implements Bloc {
   final PokemonRepository _pokemonRepository = PokemonRepository();
 
   Future<Pokemon> getPokemonByNameOrId(String nameOrId) => _pokemonRepository.getPokemonByNameOrId(nameOrId);
-  Future<List<Pokemon>> getFirstOnehundrePokemons() => _pokemonRepository.getFirstOnehundrePokemons();
+  Future<List<Pokemon>> getPokemons(int initial, int limit) => _pokemonRepository.getPokemons(initial, limit);
 
   @override
   void dispose() {

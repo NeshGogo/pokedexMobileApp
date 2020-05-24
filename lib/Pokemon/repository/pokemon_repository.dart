@@ -7,5 +7,5 @@ class PokemonRepository {
   final PokemonApi _pokemonApi = PokemonApi();
 
   Future<Pokemon> getPokemonByNameOrId(String nameOrId) => _pokemonApi.getPokemonByNameOrId(nameOrId);
-  Future<List<Pokemon>> getFirstOnehundrePokemons() => _pokemonApi.getFirstOnehundrePokemons();
+  Future<List<Pokemon>> getPokemons(int initial, int limit) => _pokemonApi.getPokemons(initial, limit);
 }

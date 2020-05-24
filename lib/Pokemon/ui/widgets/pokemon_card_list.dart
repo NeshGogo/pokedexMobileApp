@@ -1,27 +1,80 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:pokedex_mobile_app/Pokemon/model/pokemon.dart';
 import 'package:pokedex_mobile_app/Pokemon/ui/widgets/pokemon_card.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PokemonCardList extends StatelessWidget {
-  List<Pokemon> pokemons;
+  final List<Pokemon> pokemons;
+  final RefreshController refreshController;
+  final Function onRefresh;
+  final Function onLoading;
 
   PokemonCardList({
     Key key,
-    @required this.pokemons
+    @required this.pokemons,
+    @required this.refreshController,
+    @required this.onRefresh,
+    @required this.onLoading,
   });
 
   @override
   Widget build(BuildContext context) {    
     return Container(
         margin: EdgeInsets.only(top:159),
-        child: ListView(
-        scrollDirection: Axis.vertical,
-        children: pokemons.map((pokemon) {
-          return PokemonCard(pokemon: pokemon, height: 170,);
-        }).toList()
-      ),
+        child: SmartRefresher(
+          enablePullUp: true,
+          enablePullDown: true,
+          header: WaterDropHeader( waterDropColor: Color.fromRGBO(150, 60, 60, 0.9),),
+          footer: CustomFooter(
+            builder: (BuildContext context, LoadStatus mode){
+              Widget body ;
+              switch (mode) {
+                case LoadStatus.idle:
+                  body =  Text("pull up load");
+                  break;
+                case LoadStatus.loading:
+                  body =  CupertinoActivityIndicator();
+                  break;
+                case LoadStatus.failed:
+                  body = Text("Load Failed!Click retry!");
+                  break;
+                case LoadStatus.canLoading:
+                  body = Text("release to load more");
+                  break;  
+                default:
+                  body = Text("No more Data");
+                  break;
+              }          
+              return Container(
+                height: 55.0,
+                child: Center(child:body),
+              );
+            },
+          ),
+          controller: refreshController,
+          child: ListView.builder(
+            itemBuilder: (c, i) => PokemonCard(pokemon: pokemons[i], height: 170,),
+            //itemExtent: 100.0,
+            itemCount: pokemons.length,
+          ),
+          onLoading: onLoading,
+          onRefresh: onRefresh,
+        ),
     );
   }
   
 }
+
+
+
+
+
+//before code
+
+// ListView(
+//         scrollDirection: Axis.vertical,
+//         children: pokemons.map((pokemon) {
+//           return PokemonCard(pokemon: pokemon, height: 170,);
+//         }).toList()

@@ -32,24 +32,25 @@ class PokemonCardList extends StatelessWidget {
               Widget body ;
               switch (mode) {
                 case LoadStatus.idle:
-                  body =  Text("pull up load");
+                  body =  Text("Desliza para cargar");
                   break;
                 case LoadStatus.loading:
-                  body =  CupertinoActivityIndicator();
+                  body =  CircularProgressIndicator(strokeWidth: 1);
                   break;
                 case LoadStatus.failed:
-                  body = Text("Load Failed!Click retry!");
+                  body = Text("Carga fallida");
                   break;
                 case LoadStatus.canLoading:
-                  body = Text("release to load more");
+                  body = Text("Listo para cargar");
                   break;  
                 default:
-                  body = Text("No more Data");
+                  body = Text("No hay mas datos");
                   break;
               }          
               return Container(
                 height: 55.0,
-                child: Center(child:body),
+                alignment: Alignment.topCenter,
+                child: body
               );
             },
           ),

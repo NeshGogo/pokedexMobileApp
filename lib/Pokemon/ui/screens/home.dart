@@ -28,8 +28,8 @@ class _Home extends State<Home> {
   final _searchController = TextEditingController();
   List<Pokemon> _pokemonsList = List<Pokemon>();
   int _initialValue = 1;
-  int _limitValue = 11;
-  final int _incrementValue = 10;
+  int _limitValue = 6;
+  final int _incrementValue = 5;
   var _listviewState = ListviewStateEnum.initial;
 
   void _toggleSearchBox() {
@@ -44,7 +44,7 @@ class _Home extends State<Home> {
   }
 
   void _onLoadingPokemonList() async {
-    await Future.delayed(Duration(milliseconds: 1000));
+    await Future.delayed(Duration(milliseconds: 500));
 
     if (mounted)
       setState(() {
@@ -57,12 +57,16 @@ class _Home extends State<Home> {
 
   void _onRefreshPokemonList() async {
     // monitor network fetch
-    await Future.delayed(Duration(milliseconds: 1000));
-    setState(() {
-      _initialValue = 1;
-      _limitValue = 10;
-      _listviewState = ListviewStateEnum.refresh;
-    });
+    
+    await Future.delayed(Duration(milliseconds: 500));
+    _searchController.clear();
+    if (mounted)
+      setState(() {
+        _initialValue = 1;
+        _limitValue = 10;  
+        _listviewState = ListviewStateEnum.refresh;
+      });
+    _refreshController.refreshCompleted();
   }
 
   Widget loadingInterface() {

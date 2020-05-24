@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:pokedex_mobile_app/Pokemon/model/pokemon.dart';
 import 'package:pokedex_mobile_app/Pokemon/repository/pokemon_repository.dart';
@@ -8,6 +10,10 @@ class BlocPokemon implements Bloc {
   Future<Pokemon> getPokemonByNameOrId(String nameOrId) => _pokemonRepository.getPokemonByNameOrId(nameOrId);
   Future<List<Pokemon>> getPokemons(int initial, int limit) => _pokemonRepository.getPokemons(initial, limit);
 
+  StreamController loadedPokemonsController = StreamController();
+  Stream  get loadedPokemonsStream => loadedPokemonsController.stream; 
+  StreamSink get loadedPokemonsSink => loadedPokemonsController.sink;
+  
   @override
   void dispose() {
     // TODO: implement dispose

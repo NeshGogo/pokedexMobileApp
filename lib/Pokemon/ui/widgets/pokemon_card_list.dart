@@ -8,8 +8,6 @@ import 'package:pokedex_mobile_app/Pokemon/ui/widgets/pokemon_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PokemonCardList extends StatelessWidget {
-  BlocPokemon blocPokemon;
-  List<Pokemon> pokemons;
   final RefreshController refreshController;
   final Function onRefresh;
   final Function onLoading;
@@ -68,13 +66,14 @@ class PokemonCardList extends StatelessWidget {
 
     if (snapshot.hasError) return buildError( snapshot.error);
     if (!snapshot.hasData) return buildNotData();    
-
-    pokemons = snapshot.data;
+    
+    List<Pokemon> _pokemons = snapshot.data;
+    int pokemonsLength = _pokemons.length;
 
     return Container(
       margin: EdgeInsets.only(top: marginTop),
       child: SmartRefresher(
-        enablePullUp: true,
+        enablePullUp: (pokemonsLength>1)? true : false,
         enablePullDown: true,
         header: WaterDropHeader(
           waterDropColor: Color.fromRGBO(150, 60, 60, 0.9),
@@ -107,14 +106,14 @@ class PokemonCardList extends StatelessWidget {
           },
         ),
         controller: refreshController,
-        child: ListView.builder(
-          itemBuilder: (c, i) => PokemonCard(
-            pokemon: snapshot.data[i],
-            height: 170,
-          ),
-          //itemExtent: 100.0,
-          itemCount: pokemons.length,
-        ),
+        child: (pokemonsLength > 1)?  
+          ListView(
+            scrollDirection: Axis.vertical,
+            children: _pokemons.map((pokemon) {
+              return PokemonCard(pokemon: pokemon, height: 170,);
+            }).toList(),
+          ):
+          PokemonCard(pokemon: _pokemons[0], height: 170,),
         onLoading: onLoading,
         onRefresh: onRefresh,
       ),
@@ -123,10 +122,10 @@ class PokemonCardList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    blocPokemon = BlocProvider.of<BlocPokemon>(context);
+    final BlocPokemon _blocPokemon = BlocProvider.of<BlocPokemon>(context);
 
     return StreamBuilder(
-      stream: blocPokemon.loadedPokemonsStream,
+      stream: _blocPokemon.loadedPokemonsStream,
       builder: (context, AsyncSnapshot snapshot) {
         return builData(snapshot);
       },

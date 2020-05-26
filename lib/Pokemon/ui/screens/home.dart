@@ -28,7 +28,7 @@ class _Home extends State<Home> {
   final _searchController = TextEditingController();
   List<Pokemon> _pokemonsList = List<Pokemon>();
   int _initialValue = 1;
-  int _limitValue = 6;
+  int _limitValue = 11;
   final int _incrementValue = 5;
   dynamic _exception;
 
@@ -36,7 +36,7 @@ class _Home extends State<Home> {
     _pokemonsList.clear();
     _initialValue = 1;
     _limitValue = 11;
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: 200));
     
     if(_searchController.text.isNotEmpty){      
       await _blocPokemon.getPokemonByNameOrId(_searchController.text)
@@ -53,10 +53,10 @@ class _Home extends State<Home> {
         _exception = error;
       });
     }
-    
+    _blocPokemon.loadedPokemonsSink.add(_pokemonsList);
     if(mounted)
       setState(() {
-        _blocPokemon.loadedPokemonsSink.add(_pokemonsList);
+        
         if(_exception != null){
           _blocPokemon.loadedPokemonsSink.addError(_exception);
           _exception = null;
@@ -65,7 +65,7 @@ class _Home extends State<Home> {
   }
 
   void _onLoadingPokemonList() async {
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: 200));
     _initialValue = _limitValue;
     _limitValue = _limitValue + _incrementValue;    
     await _blocPokemon.getPokemons(_initialValue, _limitValue)
@@ -92,7 +92,7 @@ class _Home extends State<Home> {
   void _onRefreshPokemonList() async {
     // monitor network fetch
     
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: 200));
     _searchController.clear();
     _initialValue = 1;
     _limitValue = 10; 

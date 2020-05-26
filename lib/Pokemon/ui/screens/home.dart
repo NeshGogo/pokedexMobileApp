@@ -128,7 +128,9 @@ class _Home extends State<Home> {
         PokemonCardList(
             refreshController: _refreshController,
             onRefresh: _onRefreshPokemonList,
-            onLoading: _onLoadingPokemonList),
+            onLoading: _onLoadingPokemonList,
+            marginTop: 235,
+          ),
         Container(
           margin: EdgeInsets.only(top: 100),
           child: TextInput(
@@ -140,6 +142,19 @@ class _Home extends State<Home> {
             },
           ),
         ),
+        Container(
+          margin: EdgeInsets.only(top:200, left:20, right: 20),
+          alignment: Alignment.topCenter,
+          child: Text(
+            'Pokemons',
+            style: TextStyle(
+              fontFamily:'FredokaOne',
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white
+            ),
+          ),
+        )
       ],
     );
 

@@ -13,17 +13,19 @@ class PokemonCardList extends StatelessWidget {
   final RefreshController refreshController;
   final Function onRefresh;
   final Function onLoading;
+  final double marginTop;
 
   PokemonCardList({
     Key key,
     @required this.refreshController,
     @required this.onRefresh,
     @required this.onLoading,
+    @required this.marginTop
   });
 
   Widget buildNotData() {
     return Container(
-      margin: EdgeInsets.only(top: 159),
+      margin: EdgeInsets.only(top: marginTop),
       child: SmartRefresher(
         enablePullUp: false,
         enablePullDown: true,
@@ -52,10 +54,11 @@ class PokemonCardList extends StatelessWidget {
             (error.message == "Failed to load Pokemons")?
             "No fue posible encontrar el Pokemon...":
             "Ocurrion un error al cargarlos datos, por favor vuelva a intentarlo...",
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 35,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: Colors.blueGrey,
             ),
           ),
         ));
@@ -69,7 +72,7 @@ class PokemonCardList extends StatelessWidget {
     pokemons = snapshot.data;
 
     return Container(
-      margin: EdgeInsets.only(top: 159),
+      margin: EdgeInsets.only(top: marginTop),
       child: SmartRefresher(
         enablePullUp: true,
         enablePullDown: true,

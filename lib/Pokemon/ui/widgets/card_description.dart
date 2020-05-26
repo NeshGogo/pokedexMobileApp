@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_mobile_app/Pokemon/model/pokemon_type.dart';
+import 'pokemon_types_row.dart';
 
 class CardDescription extends StatelessWidget {
   final String name;
@@ -75,34 +76,7 @@ class CardDescription extends StatelessWidget {
 
     );
   }
-  Widget _pokemonTypeRow(){
-    
-    return Row(      
-      children: pokemonTypes.map((pokemontype) {       
-        return Container(
-            padding: EdgeInsets.all(5),
-            margin: EdgeInsets.only(right:10, top: 20 ),
-            decoration: BoxDecoration(
-              color: Colors.blueGrey[50],
-              border: Border.all(
-                color: Colors.blueGrey,
-                width: 2, 
-                style: BorderStyle.solid
-              ),
-              borderRadius: BorderRadius.all(Radius.circular(5))
-            ),
-            child: Text(
-              pokemontype.name,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.lightBlueAccent,
-                fontSize: 12
-              ),
-            ),
-          );
-      }).toList()
-    );
-  }
+
   @override
   Widget build(BuildContext context) {
     
@@ -115,7 +89,11 @@ class CardDescription extends StatelessWidget {
         ),
         Container(
           width: width,
-          child:_pokemonTypeRow(),
+          child:PokemonTypesRow(
+            pokemonTypes: pokemonTypes,
+            margin: EdgeInsets.only(right:10, top: 20 ),
+            mainAxisAlignment: MainAxisAlignment.start
+          ),
         )
         
       ],

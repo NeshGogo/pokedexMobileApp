@@ -39,7 +39,7 @@ class PokemonCardList extends StatelessWidget {
 
   Widget buildError(dynamic error) {
     return Container(
-        margin: EdgeInsets.only(top: 180, left: 20),
+        margin: EdgeInsets.only(top: 360, left: 20),
         child: SmartRefresher(
           enablePullUp: false,
           enablePullDown: true,
@@ -50,8 +50,8 @@ class PokemonCardList extends StatelessWidget {
           onRefresh: onRefresh,
           child: Text(
             (error.message == "Failed to load Pokemons")?
-            "No fue posible encontrar el Pokemon...":
-            "Ocurrion un error al cargarlos datos, por favor vuelva a intentarlo...",
+            "We can't find the pokemon, please try again...":
+            "${error.message }, please try again...",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 35,

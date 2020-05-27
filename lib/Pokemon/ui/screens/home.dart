@@ -5,16 +5,12 @@ import 'package:pokedex_mobile_app/Pokemon/Bloc/bloc_pokemon.dart';
 import 'package:pokedex_mobile_app/Pokemon/model/pokemon.dart';
 import 'package:pokedex_mobile_app/Pokemon/ui/widgets/pokemon_card_list.dart';
 import 'package:pokedex_mobile_app/widgets/back_red.dart';
+import 'package:pokedex_mobile_app/widgets/header_title.dart';
 import 'package:pokedex_mobile_app/widgets/text_input.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 
 class Home extends StatefulWidget {
-  final String title;
-  Home({
-    Key key,
-    @required this.title,
-  });
 
   @override
   State<StatefulWidget> createState() {
@@ -124,7 +120,8 @@ class _Home extends State<Home> {
     _blocPokemon = BlocProvider.of<BlocPokemon>(context);
     return Stack(
       children: <Widget>[
-        BackRed(title: widget.title, height: 350),
+        BackRed(height: 350),
+        HeaderTitle('Pokedex'),
         PokemonCardList(
             refreshController: _refreshController,
             onRefresh: _onRefreshPokemonList,
@@ -135,7 +132,7 @@ class _Home extends State<Home> {
           margin: EdgeInsets.only(top: 100),
           child: TextInput(
             controller: _searchController,
-            hitText: 'Buscar pokemon...',
+            hitText: 'Find Pokemon...',
             inputType: TextInputType.text,
             onEditingComplete: () {
               _toggleSearchBox();

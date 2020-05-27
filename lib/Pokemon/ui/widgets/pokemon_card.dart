@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_mobile_app/Pokemon/model/pokemon.dart';
+import 'package:pokedex_mobile_app/Pokemon/ui/screens/pokemon_details_screen.dart';
+import 'package:pokedex_mobile_app/Pokemon/ui/widgets/pokemon_detail_body.dart';
 
 import 'card_description.dart';
 import 'circle_card_image.dart';
@@ -14,11 +16,7 @@ class PokemonCard extends StatelessWidget {
     @override this.pokemon,
     @override this.height,
   });
-
-  @override
-  Widget build(BuildContext context) {
-    final widthScreen = MediaQuery.of(context).size.width;
-    // TODO: implement build
+  Widget buildCard(double widthScreen){
     return Container(
       height: height,
       width: widthScreen-40,
@@ -74,6 +72,20 @@ class PokemonCard extends StatelessWidget {
               )
         ],
       )
+    );
+  }
+  @override
+  Widget build(BuildContext context) {
+    final widthScreen = MediaQuery.of(context).size.width;
+    // TODO: implement build
+    return InkWell(
+      onTap: () async{
+        await Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => PokemonDetailScreen(pokemon: pokemon,))
+        );
+      },
+      child: buildCard(widthScreen),
     );
   }
   

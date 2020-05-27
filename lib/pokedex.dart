@@ -6,7 +6,7 @@ class Pokedex extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return PokemonDetailScreen(); //Home(title: 'Pokedex');
+    return  Home();
   }
 
 }

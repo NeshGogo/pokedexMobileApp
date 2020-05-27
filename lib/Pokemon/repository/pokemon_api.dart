@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:pokedex_mobile_app/Pokemon/model/pokemon.dart';
 import 'package:pokedex_mobile_app/Pokemon/model/pokemon_ability.dart';
@@ -6,27 +7,59 @@ import 'package:pokedex_mobile_app/Pokemon/model/pokemon_type.dart';
 
 
 class PokemonApi {
-  final _apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
+  final _apiUrl = 'https://pokeapi.co/api/v2/';
 
   Future<Pokemon> getPokemonByNameOrId(String nameOrId) async{
-    var response = await http.get('$_apiUrl${nameOrId.toLowerCase()}');
+    var response = await http.get('${_apiUrl}pokemon/${nameOrId.toLowerCase()}');
     if(response.statusCode != 200){
         throw Exception('Failed to load Pokemons');
       }      
     return buildPokemon(json.decode(response.body));
   }
-
+  Future<List<String>> getPokemonEncounters(int id)async {
+    var response = await http.get('${_apiUrl}pokemon/$id/encounters');
+    if(response.statusCode != 200){
+        throw Exception('Failed to load Pokemons');
+    }      
+    List content = json.decode(response.body);
+    
+    if(content.length>0)
+      return content.map((value) => value['location_area']['name'].toString()).toList();
+    else
+      return ["It doesn't have any place to encounter."];
+    
+  }
+  
+  Future<List<PokemonAbility>> getPokemonAbilityById(List<int> ids) async {
+    List<PokemonAbility> abilities = List<PokemonAbility>();    
+    for (var id in ids) {
+      var response = await http.get('${_apiUrl}ability/$id');
+      if(response.statusCode != 200){
+        throw Exception('Failed to load Pokemons');
+      }
+      abilities.add(buildAbility(json.decode(response.body)));
+    }    
+    return abilities;
+  }
 
   Future<List<Pokemon>> getPokemons(int initial, int limit) async{
     List<Pokemon> pokemons = List<Pokemon>();
     for (var pokemonId = initial; pokemonId < limit; pokemonId++) {      
-      var response = await  http.get('$_apiUrl$pokemonId');
+      var response = await  http.get('${_apiUrl}pokemon/$pokemonId');
       if(response.statusCode != 200){
         throw Exception('Failed to load Pokemons');
       }      
       pokemons.add(buildPokemon(json.decode(response.body)));
     }
     return pokemons;
+  }
+
+  PokemonAbility buildAbility(Map<String, dynamic> json){
+    return PokemonAbility(
+      id: json['id'],
+      name: json['name'],
+      effect: json['effect_entries'][0]['effect']
+    );
   }
 
   Pokemon buildPokemon(Map<String, dynamic> json) {   

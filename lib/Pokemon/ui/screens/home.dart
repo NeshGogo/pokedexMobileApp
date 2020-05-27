@@ -117,43 +117,85 @@ class _Home extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+
     _blocPokemon = BlocProvider.of<BlocPokemon>(context);
+    var _openEndDrawer = Container(
+                margin: EdgeInsets.only(top: 35, right: 20,),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.white,
+                    width:1, 
+                    style:BorderStyle.solid 
+                  )
+                ),
+                child:SizedBox(
+                  width: 35,
+                  height: 35,
+                  child:IconButton(
+                    padding: EdgeInsets.only(bottom:2),
+                    iconSize: 35,
+                    icon: Icon(
+                      Icons.person,
+                      color: Colors.white,
+                    ),
+                    onPressed: () => Scaffold.of(context).openEndDrawer(),
+                  ),
+                ) ,
+              );
     return Stack(
-      children: <Widget>[
-        BackRed(height: 350),
-        HeaderTitle('Pokedex'),
-        PokemonCardList(
-            refreshController: _refreshController,
-            onRefresh: _onRefreshPokemonList,
-            onLoading: _onLoadingPokemonList,
-            marginTop: 235,
+        children: <Widget>[
+          BackRed(height: 350),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[              
+              HeaderTitle('Pokedex'),
+              _openEndDrawer
+            ],
           ),
-        Container(
-          margin: EdgeInsets.only(top: 100),
-          child: TextInput(
-            controller: _searchController,
-            hitText: 'Find Pokemon...',
-            inputType: TextInputType.text,
-            onEditingComplete: () {
-              _toggleSearchBox();
-            },
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(top:200, left:20, right: 20),
-          alignment: Alignment.topCenter,
-          child: Text(
-            'Pokemons',
-            style: TextStyle(
-              fontFamily:'FredokaOne',
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.white
+          Container(
+            margin: EdgeInsets.only(top:300),
+            decoration: BoxDecoration(
+              color: Colors.grey[50],
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20)
+              )
             ),
           ),
-        )
-      ],
-    );
+          PokemonCardList(
+              refreshController: _refreshController,
+              onRefresh: _onRefreshPokemonList,
+              onLoading: _onLoadingPokemonList,
+              marginTop: 235,
+            ),
+          Container(
+            margin: EdgeInsets.only(top: 100),
+            child: TextInput(
+              controller: _searchController,
+              hitText: 'Find Pokemon...',
+              inputType: TextInputType.text,
+              onEditingComplete: () {
+                _toggleSearchBox();
+              },
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top:200, left:20, right: 20),
+            alignment: Alignment.topCenter,
+            child: Text(
+              'Pokemons',
+              style: TextStyle(
+                fontFamily:'FredokaOne',
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white
+              ),
+            ),
+          ),
+          
+        ],
+      );
 
   }
 }

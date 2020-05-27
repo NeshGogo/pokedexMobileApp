@@ -23,13 +23,13 @@ class PokemonDetailScreen extends StatelessWidget {
         if (snapshotAbilities.hasError || !snapshotAbilities.hasData) {
           return Container();
         }
-        
         return FutureBuilder(
           future: _blocPokemon.getPokemonEncounters(pokemon.id),
           builder: (context, AsyncSnapshot<List<String>> snapshotEncounters) {
             if (snapshotEncounters.hasError || !snapshotEncounters.hasData) {
               return Container();
             }
+            Future.delayed(Duration(milliseconds: 200));
             return PokemonDetailBody(
               abilities: snapshotAbilities.data,
               encountersPlace: snapshotEncounters.data,
@@ -69,7 +69,7 @@ class PokemonDetailScreen extends StatelessWidget {
             color: Colors.white,
             child: Stack(
               children: <Widget>[
-                BackRed(height: 350),
+                BackRed(height: 360),
                 Row(
                   children:[
                     _goBack,

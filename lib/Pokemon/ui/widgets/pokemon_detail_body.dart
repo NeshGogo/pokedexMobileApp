@@ -128,7 +128,14 @@ class PokemonDetailBody extends StatelessWidget {
   Widget build(BuildContext context) {
     _widthScream = MediaQuery.of(context).size.width;
     return Container(
-      margin: EdgeInsets.only(top:350),
+      decoration: BoxDecoration(
+        color: Colors.grey[50],
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20)
+        )
+      ),
+      margin: EdgeInsets.only(top:340),
       child:Column(
         children: <Widget>[
           _seccionHeade('Abilities'),

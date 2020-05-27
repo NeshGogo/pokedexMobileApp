@@ -31,7 +31,9 @@ dependencies:
   http: 0.12.1
   generic_bloc_provider: 1.0.9
   pull_to_refresh: ^1.5.7
-  
+  google_sign_in: 4.5.1
+  cloud_firestore: 0.13.6
+  firebase_auth: 0.16.1
 
 dev_dependencies:
   flutter_test:

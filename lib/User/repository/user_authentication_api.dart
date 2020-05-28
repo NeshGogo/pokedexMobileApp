@@ -7,6 +7,11 @@ class UserAuthenticationAPI {
   final _googleAuth = GoogleSignIn();
   final _firebaseAuth = FirebaseAuth.instance;
   
+  Stream<FirebaseUser> _streamFirebase =  FirebaseAuth.instance.onAuthStateChanged;
+  
+  Stream<FirebaseUser> get authState => _streamFirebase;
+  Future<User> get currentUser  async => _buildUser(await FirebaseAuth.instance.currentUser());
+
   User _buildUser(FirebaseUser user){
     return User(
       id: user.providerId,
@@ -27,7 +32,7 @@ class UserAuthenticationAPI {
 
     return _buildUser(user);
   }
-  googleSignOut() async{
+  signOutWithGoogle() async{
     await _firebaseAuth.signOut();
     await _googleAuth.signOut();
   }

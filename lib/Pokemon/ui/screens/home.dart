@@ -120,15 +120,7 @@ class _Home extends State<Home> {
 
     _blocPokemon = BlocProvider.of<BlocPokemon>(context);
     var _openEndDrawer = Container(
-                margin: EdgeInsets.only(top: 35, right: 20,),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.white,
-                    width:1, 
-                    style:BorderStyle.solid 
-                  )
-                ),
+                margin: EdgeInsets.only(top: 35, right: 20,),                
                 child:SizedBox(
                   width: 35,
                   height: 35,
@@ -136,7 +128,7 @@ class _Home extends State<Home> {
                     padding: EdgeInsets.only(bottom:2),
                     iconSize: 35,
                     icon: Icon(
-                      Icons.person,
+                      Icons.account_circle,
                       color: Colors.white,
                     ),
                     onPressed: () => Scaffold.of(context).openEndDrawer(),

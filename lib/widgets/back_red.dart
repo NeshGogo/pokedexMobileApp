@@ -15,12 +15,39 @@ class BackRed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final widthScreen = MediaQuery.of(context).size.width;
-    
+    final _widthScreen = MediaQuery.of(context).size.width;
+    final _screamHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: height,
-      width: widthScreen,
+      height: height?? _screamHeight,
+      width: _widthScreen,
       color: Colors.red,
+      child: FittedBox(
+        fit: BoxFit.none,        
+        child: Row(
+          children:[
+            Container(
+              alignment: Alignment(1.8,0),
+              height: _screamHeight,
+              width: _screamHeight,
+              margin: EdgeInsets.only(right: _widthScreen/2),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(_screamHeight/2),
+                color: Colors.redAccent
+              ),
+            ),
+            Container(
+              alignment: Alignment(1.8,0),
+              height: _screamHeight,
+              width: _screamHeight,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(_screamHeight/2),
+                color: Colors.redAccent
+              ),
+            ),
+          ]
+        )
+        
+      ),
     );
   }
 }

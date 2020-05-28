@@ -62,27 +62,24 @@ class PokemonDetailScreen extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: Colors.red,
       body: ListView(
+        padding: EdgeInsets.zero,
         children: [
-          Container(
-            color: Colors.white,
-            child: Stack(
-              children: <Widget>[
-                BackRed(height: 360),
-                Row(
-                  children:[
-                    _goBack,
-                    HeaderTitle( 'Pokemon Detail')
-                  ]
-                ),
-                PokemonDetailHeader(
-                  pokemon: pokemon,
-                ),
-                buildBody()
-              ]
-            ),
-          )
+          Stack(
+            children: <Widget>[
+              BackRed(height: 360),
+              Row(
+                children:[
+                  _goBack,
+                  HeaderTitle( 'Pokemon Detail')
+                ]
+              ),
+              PokemonDetailHeader(
+                pokemon: pokemon,
+              ),
+              buildBody()
+            ]
+          ),
         ]
       )
     );

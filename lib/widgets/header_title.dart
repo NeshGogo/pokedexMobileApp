@@ -7,7 +7,6 @@ class HeaderTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 30, left: 20, right: 20),
-      color: Colors.red,
       child: Text(
         title,
         textAlign: TextAlign.left,

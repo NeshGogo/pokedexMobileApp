@@ -79,6 +79,7 @@ class PokemonCard extends StatelessWidget {
     final widthScreen = MediaQuery.of(context).size.width;
     // TODO: implement build
     return InkWell(
+      splashColor: Colors.redAccent,
       onTap: () async{
         await Navigator.push(
           context, 

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:pokedex_mobile_app/Pokemon/Bloc/bloc_pokemon.dart';
+import 'package:pokedex_mobile_app/User/Ui/screens/login_screen.dart';
+import 'package:pokedex_mobile_app/User/bloc/bloc_user.dart';
 import 'package:pokedex_mobile_app/pokedex.dart';
 
 
@@ -25,7 +27,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Pokedex',
-        home: Pokedex()
+        home: BlocProvider(
+          bloc: BlocUser(),
+          child: LoginScreen(),
+        )
       ),
     );
   }

@@ -10,11 +10,14 @@ class PokemonCard extends StatelessWidget {
   
   final Pokemon pokemon;
   final double height;
-
+  final Function onPressedButtom;
+  final IconData iconDataButtom;
   PokemonCard({
     Key key,
     @override this.pokemon,
     @override this.height,
+    @override this.onPressedButtom,
+    @override this.iconDataButtom,
   });
   Widget buildCard(double widthScreen){
     return Container(
@@ -38,17 +41,20 @@ class PokemonCard extends StatelessWidget {
         ],
         
       ),
-      child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                CircleCardImage(
-                  imagePath: pokemon.photoUrl, 
-                  height: height, 
-                  width: widthScreen/2,
-                ),
-                Column(      
-                  crossAxisAlignment: CrossAxisAlignment.start,           
-                  children: <Widget>[                      
+      child: Stack(
+        alignment: Alignment(0, -1),
+        children: <Widget>[
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              CircleCardImage(
+                imagePath: pokemon.photoUrl, 
+                height: height, 
+                width: widthScreen/2,
+              ),
+              Column(      
+                crossAxisAlignment: CrossAxisAlignment.start,           
+                children: <Widget>[                      
                   Container(                      
                     margin: EdgeInsets.only(top:10,bottom:15),
                     width: widthScreen-210,       
@@ -70,8 +76,20 @@ class PokemonCard extends StatelessWidget {
                   )
                 ],
               )
+            ],
+          ),
+          IconButton(
+            color: Colors.white,
+            splashColor: Colors.redAccent,
+            iconSize: 30,
+            icon: Icon(
+              iconDataButtom, 
+            ),
+            onPressed: onPressedButtom,
+          )
         ],
       )
+      
     );
   }
   @override

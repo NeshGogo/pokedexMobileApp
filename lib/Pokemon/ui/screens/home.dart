@@ -27,6 +27,7 @@ class _Home extends State<Home> {
   int _limitValue = 11;
   final int _incrementValue = 5;
   dynamic _exception;
+  bool likedIconButtom = false;
 
   void _toggleSearchBox() async{  
     _pokemonsList.clear();
@@ -114,11 +115,17 @@ class _Home extends State<Home> {
       });
     
   }
-
+  void _onPressedIconButtom(){
+    
+    setState(() {
+      likedIconButtom = !likedIconButtom;
+    });
+  }
   @override
   Widget build(BuildContext context) {
 
     _blocPokemon = BlocProvider.of<BlocPokemon>(context);
+
     var _openEndDrawer = Container(
                 margin: EdgeInsets.only(top: 35, right: 20,),                
                 child:SizedBox(
@@ -160,6 +167,8 @@ class _Home extends State<Home> {
               onRefresh: _onRefreshPokemonList,
               onLoading: _onLoadingPokemonList,
               marginTop: 235,
+              iconDataButtom: likedIconButtom? Icons.favorite: Icons.favorite_border,
+              onPressedButtom: _onPressedIconButtom, 
             ),
           Container(
             margin: EdgeInsets.only(top: 100),

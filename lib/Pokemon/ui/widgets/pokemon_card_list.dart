@@ -12,13 +12,17 @@ class PokemonCardList extends StatelessWidget {
   final Function onRefresh;
   final Function onLoading;
   final double marginTop;
+  final Function onPressedButtom;
+  final IconData iconDataButtom;
 
   PokemonCardList({
     Key key,
     @required this.refreshController,
     @required this.onRefresh,
     @required this.onLoading,
-    @required this.marginTop
+    @required this.marginTop,
+    @required this.onPressedButtom,
+    @required this.iconDataButtom,
   });
 
   Widget buildNotData() {
@@ -110,7 +114,12 @@ class PokemonCardList extends StatelessWidget {
           ListView(
             scrollDirection: Axis.vertical,
             children: _pokemons.map((pokemon) {
-              return PokemonCard(pokemon: pokemon, height: 190,);
+              return PokemonCard(
+                pokemon: pokemon, 
+                height: 190,
+                iconDataButtom: iconDataButtom,
+                onPressedButtom: onPressedButtom,
+              );
             }).toList(),
           ):
           PokemonCard(pokemon: _pokemons[0], height: 190,),
@@ -133,10 +142,4 @@ class PokemonCardList extends StatelessWidget {
   }
 }
 
-//before code
 
-// ListView(
-//         scrollDirection: Axis.vertical,
-//         children: pokemons.map((pokemon) {
-//           return PokemonCard(pokemon: pokemon, height: 170,);
-//         }).toList()

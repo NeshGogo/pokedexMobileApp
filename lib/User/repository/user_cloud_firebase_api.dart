@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pokedex_mobile_app/Pokemon/model/pokemon.dart';
 import 'package:pokedex_mobile_app/User/model/user.dart';
 
 class UserCloudFirebaseApi {
@@ -26,5 +27,16 @@ class UserCloudFirebaseApi {
         'lastSignIn': DateTime.now()
       });
     }
+  }
+
+  void addOrRemoveFavoritePokemon(String userId, Pokemon pokemon){
+    _db.collection(_users).document(userId).get().then((userSnapshot){
+      var ref = _db.collection(_users).document(userId);
+      List<Pokemon> favoritesPokemon = userSnapshot.data['favoritePokemons'];
+      ref.updateData({        
+        'favoritePokemons': (!favoritesPokemon.contains(pokemon))? 
+          FieldValue.arrayUnion([pokemon]) : FieldValue.arrayRemove([pokemon]),
+      });
+    });
   }
 }

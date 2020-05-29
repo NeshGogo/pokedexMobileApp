@@ -14,7 +14,7 @@ class UserAuthenticationAPI {
 
   User _buildUser(FirebaseUser user){
     return User(
-      id: user.providerId,
+      id: user.uid,
       name: user.displayName,
       email: user.email,
       photoUrl: user.photoUrl,

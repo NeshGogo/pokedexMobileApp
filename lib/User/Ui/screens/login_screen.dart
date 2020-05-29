@@ -71,7 +71,9 @@ class _LoginScreen extends State<LoginScreen>{
             alignment: Alignment.center,
             child: RaisedButton(
               padding: EdgeInsets.all(0),
-              onPressed: ()=>_blocUser.signInWithGoogle(),
+              onPressed: ()=>_blocUser.signInWithGoogle()
+                .then((user) => _blocUser.updateOrSetUser(user)
+              ),
               color: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10))

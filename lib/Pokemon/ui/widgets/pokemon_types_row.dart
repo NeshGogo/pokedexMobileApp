@@ -3,21 +3,24 @@ import 'package:pokedex_mobile_app/Pokemon/model/pokemon_type.dart';
 
 class PokemonTypesRow extends StatelessWidget {
   final EdgeInsetsGeometry margin;
-  final MainAxisAlignment mainAxisAlignment;
+  final double spacingBetween;
+  final double runSpacing;
   final List<PokemonType> pokemonTypes;
 
   PokemonTypesRow({
     Key key,
-    @required this.pokemonTypes,
-    @required this.mainAxisAlignment,
-    @required this.margin
+    @required this.pokemonTypes,    
+    @required this.margin,
+    this.spacingBetween = 0,
+    this.runSpacing = 0,
   });
   
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Row(   
-      mainAxisAlignment: mainAxisAlignment,   
+    return Wrap(     
+      spacing: spacingBetween,
+      runSpacing: runSpacing,
       children: pokemonTypes.map((pokemontype) {       
         return Container(
             padding: EdgeInsets.all(5),

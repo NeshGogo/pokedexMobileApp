@@ -44,7 +44,8 @@ class PokemonApi {
 
   Future<List<Pokemon>> getPokemons(int initial, int limit) async{
     List<Pokemon> pokemons = List<Pokemon>();
-    for (var pokemonId = initial; pokemonId < limit; pokemonId++) {      
+    for (var pokemonId = initial; pokemonId < limit; pokemonId++) {   
+      pokemonId=pokemonId == 19? 20: pokemonId;//it is for a mistake with the API
       var response = await  http.get('${_apiUrl}pokemon/$pokemonId');
       if(response.statusCode != 200){
         throw Exception('Failed to load Pokemons');

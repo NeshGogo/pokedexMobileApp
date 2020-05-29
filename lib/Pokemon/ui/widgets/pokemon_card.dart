@@ -20,7 +20,7 @@ class PokemonCard extends StatelessWidget {
     return Container(
       height: height,
       width: widthScreen-40,
-      margin: EdgeInsets.only(right: 20, left: 20, bottom: 40),
+      margin: EdgeInsets.only(right: 10, left: 10, bottom: 40),
       decoration: BoxDecoration(
         color: Color.fromRGBO(150, 60, 60, 0.9),
         borderRadius: BorderRadius.only(
@@ -44,28 +44,28 @@ class PokemonCard extends StatelessWidget {
                 CircleCardImage(
                   imagePath: pokemon.photoUrl, 
                   height: height, 
-                  width: 150,
+                  width: widthScreen/2,
                 ),
                 Column(      
                   crossAxisAlignment: CrossAxisAlignment.start,           
                   children: <Widget>[                      
-                  Container(   
+                  Container(                      
                     margin: EdgeInsets.only(top:10,bottom:15),
                     width: widthScreen-210,       
                     child: Text(
                       pokemon.name.toUpperCase(),
                       style: TextStyle(
-                        color: Colors.white70,
+                        color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.bold
                       ),
                     ),
                   ),
                   CardDescription(
-                    name: pokemon.name, 
+                    height: height-71, 
                     pokemonTypes: pokemon.types,
-                    weight: pokemon.weight, 
-                    height: pokemon.height,
+                    pokemonWeight: pokemon.weight, 
+                    pokemonHeight: pokemon.height,
                     width: widthScreen-210,
                   )
                 ],

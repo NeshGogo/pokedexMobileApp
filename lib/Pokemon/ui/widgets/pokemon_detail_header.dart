@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_mobile_app/Pokemon/model/pokemon.dart';
 import 'pokemon_types_row.dart';
+import 'package:pokedex_mobile_app/widgets/full_screen_image.dart';
 
 class PokemonDetailHeader extends StatelessWidget {
 
@@ -11,22 +12,33 @@ class PokemonDetailHeader extends StatelessWidget {
     @required this.pokemon
   });
   
-  Widget _circleImage (){
+  Widget _circleImage (BuildContext context){
     return Container(
       margin: EdgeInsets.only(top: 80),
       alignment: Alignment.center,
       child: Column(
         children: <Widget>[
-          Container(
+          Container( 
             height: 100,
             width:100,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(pokemon.photoUrl),
-                fit: BoxFit.fitHeight,
-              ),
+            decoration: BoxDecoration(                
               shape: BoxShape.circle,
               color: Colors.white
+            ),
+            child: Material(              
+              borderRadius: BorderRadius.circular(50),
+              child: InkWell(
+                radius: 35,
+                splashColor: Colors.redAccent,
+                onTap: ()=> Navigator.push(context, MaterialPageRoute(
+                  builder: (context)=>FullScreenImage(pokemon.photoUrl)
+                )),
+                child: Hero(
+                  tag: 'imageHero',
+                  child: Image.network(pokemon.photoUrl),
+                ),
+                
+              ),
             )
           ),
           Container(
@@ -129,10 +141,11 @@ class PokemonDetailHeader extends StatelessWidget {
           ),
           Container(
             width: width,
+            alignment: Alignment.center,
             child: PokemonTypesRow(
               pokemonTypes: pokemon.types,
               margin: EdgeInsets.only(top:8),
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              spacingBetween: 5,
             ),
           )
           
@@ -147,7 +160,7 @@ class PokemonDetailHeader extends StatelessWidget {
     return Container(
       child: Column(
         children: <Widget>[
-          _circleImage(),
+          _circleImage(context),
           _characteristics(),
           _pokemonTypes(width/2)
         ],

@@ -62,7 +62,7 @@ class _Home extends State<Home> {
 
   void _onLoadingPokemonList() async {
     await Future.delayed(Duration(milliseconds: 200));
-    _initialValue = _limitValue;
+    _initialValue = _limitValue == 20? 21: _limitValue; //this validation is for a error with the API
     _limitValue = _limitValue + _incrementValue;    
     await _blocPokemon.getPokemons(_initialValue, _limitValue)
     .then((pokemons) { 

@@ -17,7 +17,7 @@ class CircleCardImage extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(      
-      margin: EdgeInsets.only(right: 20),
+      margin: EdgeInsets.only(right: 10),
       width: width,
       height: height,
       decoration: BoxDecoration(

@@ -110,10 +110,10 @@ class PokemonCardList extends StatelessWidget {
           ListView(
             scrollDirection: Axis.vertical,
             children: _pokemons.map((pokemon) {
-              return PokemonCard(pokemon: pokemon, height: 170,);
+              return PokemonCard(pokemon: pokemon, height: 190,);
             }).toList(),
           ):
-          PokemonCard(pokemon: _pokemons[0], height: 170,),
+          PokemonCard(pokemon: _pokemons[0], height: 190,),
         onLoading: onLoading,
         onRefresh: onRefresh,
       ),

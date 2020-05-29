@@ -3,19 +3,19 @@ import 'package:pokedex_mobile_app/Pokemon/model/pokemon_type.dart';
 import 'pokemon_types_row.dart';
 
 class CardDescription extends StatelessWidget {
-  final String name;
-  final List<PokemonType> pokemonTypes;
-  final double weight;
   final double height;
+  final List<PokemonType> pokemonTypes;
+  final double pokemonWeight;
+  final double pokemonHeight;
   final double width;
 
   CardDescription({
     Key key,
-    @override this.name,
     @override this.pokemonTypes,
-    @override this.weight,
-    @override this.height,
-    @override this.width
+    @override this.pokemonWeight,
+    @override this.pokemonHeight,
+    @override this.width,
+    @override this.height
   });
 
   Widget _dimensionsRow(){
@@ -37,7 +37,7 @@ class CardDescription extends StatelessWidget {
             ),
             Container(     
               child: Text(
-                '$height',
+                '$pokemonHeight',
                 style: TextStyle(
                   color: Colors.amber,
                   fontSize: 12,
@@ -49,8 +49,7 @@ class CardDescription extends StatelessWidget {
         ),
         Row(
           children:[
-            Container(     
-                
+            Container(                
               child: Text(
                 'Weight: ',
                 style: TextStyle(
@@ -62,7 +61,7 @@ class CardDescription extends StatelessWidget {
             ),
             Container(          
               child: Text(
-                '$weight',
+                '$pokemonWeight',
                 style: TextStyle(
                   color: Colors.amber,
                   fontSize: 12,
@@ -80,23 +79,29 @@ class CardDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    return Column(  
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          width: width,
-          child:_dimensionsRow(),
-        ),
-        Container(
-          width: width,
-          child:PokemonTypesRow(
-            pokemonTypes: pokemonTypes,
-            margin: EdgeInsets.only(right:10, top: 20 ),
-            mainAxisAlignment: MainAxisAlignment.start
+    return Container(
+      height: height,
+      width: width,
+      child: Column(  
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            width: width,
+            child:_dimensionsRow(),
           ),
-        )
-        
-      ],
+          Container(
+            height: height-38,
+            alignment: Alignment.bottomCenter,
+            child:PokemonTypesRow(
+              pokemonTypes: pokemonTypes,
+              margin: EdgeInsets.only(right:10, top: 10 ),
+              spacingBetween: 0,
+              runSpacing: -5,
+            ),
+          )
+          
+        ],
+      ),
     );
   }
   

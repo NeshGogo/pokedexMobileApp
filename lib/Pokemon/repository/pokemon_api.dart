@@ -4,10 +4,13 @@ import 'package:http/http.dart' as http;
 import 'package:pokedex_mobile_app/Pokemon/model/pokemon.dart';
 import 'package:pokedex_mobile_app/Pokemon/model/pokemon_ability.dart';
 import 'package:pokedex_mobile_app/Pokemon/model/pokemon_type.dart';
+import 'package:pokedex_mobile_app/User/repository/user_cloud_firebase_api.dart';
+
 
 
 class PokemonApi {
   final _apiUrl = 'https://pokeapi.co/api/v2/';
+  final _userCloud = UserCloudFirebaseApi();
 
   Future<Pokemon> getPokemonByNameOrId(String nameOrId) async{
     var response = await http.get('${_apiUrl}pokemon/${nameOrId.toLowerCase()}');
@@ -32,6 +35,7 @@ class PokemonApi {
   
   Future<List<PokemonAbility>> getPokemonAbilityById(List<int> ids) async {
     List<PokemonAbility> abilities = List<PokemonAbility>();    
+    
     for (var id in ids) {
       var response = await http.get('${_apiUrl}ability/$id');
       if(response.statusCode != 200){
@@ -50,7 +54,7 @@ class PokemonApi {
       if(response.statusCode != 200){
         throw Exception('Failed to load Pokemons');
       }      
-      pokemons.add(buildPokemon(json.decode(response.body)));
+      pokemons.add(await buildPokemon(json.decode(response.body)));
     }
     return pokemons;
   }
@@ -63,7 +67,8 @@ class PokemonApi {
     );
   }
 
-  Pokemon buildPokemon(Map<String, dynamic> json) {   
+  Future<Pokemon> buildPokemon(Map<String, dynamic> json) async{   
+    var favortiePokemonIds = await _userCloud.getFavoritePokemons();
     List<dynamic> pokemonAbilities= json['abilities'];
     
     List<dynamic> pokemonTypes= json['types'];
@@ -94,7 +99,8 @@ class PokemonApi {
           id: int.parse(url.substring(startIndex,endIndex)),// capture the index from URL.
           name: elementMap['ability']['name'],
         );
-      }).toList()  
+      }).toList(),
+      liked: (favortiePokemonIds.length > 0 && favortiePokemonIds.any((pokemonId) => pokemonId == json['id']) )? true : false, 
       
     );
   }

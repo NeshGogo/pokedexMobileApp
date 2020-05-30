@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_mobile_app/Pokemon/model/pokemon.dart';
 
 class User {
   final String id;

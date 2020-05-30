@@ -10,6 +10,7 @@ class Pokemon {
   final String photoUrl;
   final List<PokemonAbility> abilities;
   final List<PokemonType> types;
+  bool liked;
   
   Pokemon({
     Key key,
@@ -19,6 +20,7 @@ class Pokemon {
     this.weight,
     this.height,
     this.abilities,
-    this.types
+    this.types,
+    this.liked,
   });
 }

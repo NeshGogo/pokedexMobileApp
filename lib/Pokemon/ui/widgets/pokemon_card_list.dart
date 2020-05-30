@@ -5,15 +5,15 @@ import 'package:pokedex_mobile_app/Pokemon/Bloc/bloc_pokemon.dart';
 import 'package:pokedex_mobile_app/Pokemon/model/pokemon.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:pokedex_mobile_app/Pokemon/ui/widgets/pokemon_card.dart';
+import 'package:pokedex_mobile_app/User/bloc/bloc_user.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class PokemonCardList extends StatelessWidget {
+class PokemonCardList extends StatefulWidget {
   final RefreshController refreshController;
   final Function onRefresh;
   final Function onLoading;
   final double marginTop;
-  final Function onPressedButtom;
-  final IconData iconDataButtom;
+  
 
   PokemonCardList({
     Key key,
@@ -21,21 +21,30 @@ class PokemonCardList extends StatelessWidget {
     @required this.onRefresh,
     @required this.onLoading,
     @required this.marginTop,
-    @required this.onPressedButtom,
-    @required this.iconDataButtom,
   });
+
+
+  @override
+  State<StatefulWidget> createState() {
+
+    return _PokemonCardList();
+  }
+}
+
+class _PokemonCardList extends State<PokemonCardList>{
+  BlocUser _blocUser;
 
   Widget buildNotData() {
     return Container(
-      margin: EdgeInsets.only(top: marginTop),
+      margin: EdgeInsets.only(top: widget.marginTop),
       child: SmartRefresher(
         enablePullUp: false,
         enablePullDown: true,
         header: WaterDropHeader(
           waterDropColor: Color.fromRGBO(150, 60, 60, 0.9),
         ),
-        controller: refreshController,
-        onRefresh: onRefresh,
+        controller: widget.refreshController,
+        onRefresh: widget.onRefresh,
         child: ListView(),
       ),
     );
@@ -50,8 +59,8 @@ class PokemonCardList extends StatelessWidget {
           header: WaterDropHeader(
             waterDropColor: Color.fromRGBO(150, 60, 60, 0.9),
           ),
-          controller: refreshController,
-          onRefresh: onRefresh,
+          controller: widget.refreshController,
+          onRefresh: widget.onRefresh,
           child: Text(
             (error.message == "Failed to load Pokemons")?
             "We can't find the pokemon, please try again...":
@@ -75,7 +84,7 @@ class PokemonCardList extends StatelessWidget {
     int pokemonsLength = _pokemons.length;
 
     return Container(
-      margin: EdgeInsets.only(top: marginTop),
+      margin: EdgeInsets.only(top: widget.marginTop),
       child: SmartRefresher(
         enablePullUp: (pokemonsLength>1)? true : false,
         enablePullDown: true,
@@ -109,7 +118,7 @@ class PokemonCardList extends StatelessWidget {
             );
           },
         ),
-        controller: refreshController,
+        controller: widget.refreshController,
         child: (pokemonsLength > 1)?  
           ListView(
             scrollDirection: Axis.vertical,
@@ -117,22 +126,30 @@ class PokemonCardList extends StatelessWidget {
               return PokemonCard(
                 pokemon: pokemon, 
                 height: 190,
-                iconDataButtom: iconDataButtom,
-                onPressedButtom: onPressedButtom,
+                iconDataButtom: pokemon.liked? Icons.favorite: Icons.favorite_border,
+                onPressedButtom: (){
+                  _blocUser.currentUser.then((user) {
+                    _blocUser.addOrRemoveFavoritePokemon(user.id, pokemon);
+                  });
+                  setState(() {
+                    pokemon.liked = !pokemon.liked;
+                  });
+                },
               );
             }).toList(),
           ):
           PokemonCard(pokemon: _pokemons[0], height: 190,),
-        onLoading: onLoading,
-        onRefresh: onRefresh,
+        onLoading: widget.onLoading,
+        onRefresh: widget.onRefresh,
       ),
     );
   }
-
+  
+  
   @override
   Widget build(BuildContext context) {
     final BlocPokemon _blocPokemon = BlocProvider.of<BlocPokemon>(context);
-
+    _blocUser = BlocProvider.of<BlocUser>(context);
     return StreamBuilder(
       stream: _blocPokemon.loadedPokemonsStream,
       builder: (context, AsyncSnapshot snapshot) {
@@ -141,5 +158,4 @@ class PokemonCardList extends StatelessWidget {
     );
   }
 }
-
 

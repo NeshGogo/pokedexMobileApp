@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:pokedex_mobile_app/Pokemon/ui/screens/pokemon_details_screen.dart';
+import 'package:pokedex_mobile_app/User/Ui/screens/my_favorite_pokemons_screen.dart';
 import 'package:pokedex_mobile_app/User/bloc/bloc_user.dart';
 import 'package:pokedex_mobile_app/User/model/user.dart';
 import 'Pokemon/Bloc/bloc_pokemon.dart';
@@ -61,9 +62,11 @@ class Pokedex extends StatelessWidget{
                 },
               ),
               ListTile(
-                leading: Icon(Icons.person),
+                onTap: () => Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => BlocProvider(child: MyFavoritePokemonsScreen(), bloc: BlocUser()))) ,
+                leading: Icon(Icons.favorite, color: Colors.redAccent,),
                 title: Text(
-                  'Profile', 
+                  'Favorites Pokemons', 
                   style: TextStyle(
                     color: Colors.blueGrey,
                     fontSize: 16

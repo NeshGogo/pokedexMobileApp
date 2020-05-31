@@ -138,7 +138,19 @@ class _PokemonCardList extends State<PokemonCardList>{
               );
             }).toList(),
           ):
-          PokemonCard(pokemon: _pokemons[0], height: 190,),
+          PokemonCard(
+            pokemon: _pokemons[0],
+            height: 190,
+            iconDataButtom: _pokemons[0].liked? Icons.favorite: Icons.favorite_border,
+            onPressedButtom: (){
+              _blocUser.currentUser.then((user) {
+                _blocUser.addOrRemoveFavoritePokemon(user.id, _pokemons[0]);
+              });
+              setState(() {
+                _pokemons[0].liked = !_pokemons[0].liked;
+              });
+            }
+          ),
         onLoading: widget.onLoading,
         onRefresh: widget.onRefresh,
       ),

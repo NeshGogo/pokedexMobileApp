@@ -25,15 +25,15 @@ class _Home extends State<Home> {
   final _searchController = TextEditingController();
   List<Pokemon> _pokemonsList = List<Pokemon>();
   int _initialValue = 1;
-  int _limitValue = 11;
-  final int _incrementValue = 5;
+  int _limitValue = 21;
+  final int _incrementValue = 20;
   dynamic _exception;
 
 
   void _toggleSearchBox() async{  
     _pokemonsList.clear();
     _initialValue = 1;
-    _limitValue = 11;
+    _limitValue = 21;
     await Future.delayed(Duration(milliseconds: 200));
     
     if(_searchController.text.isNotEmpty){      
@@ -64,7 +64,7 @@ class _Home extends State<Home> {
 
   void _onLoadingPokemonList() async {
     await Future.delayed(Duration(milliseconds: 200));
-    _initialValue = _limitValue == 20? 21: _limitValue; //this validation is for a error with the API
+    _initialValue =  _limitValue;
     _limitValue = _limitValue + _incrementValue;    
     await _blocPokemon.getPokemons(_initialValue, _limitValue)
     .then((pokemons) { 
@@ -93,7 +93,7 @@ class _Home extends State<Home> {
     await Future.delayed(Duration(milliseconds: 200));
     _searchController.clear();
     _initialValue = 1;
-    _limitValue = 10; 
+    _limitValue = 21; 
     _pokemonsList.clear(); 
     await _blocPokemon.getPokemons(_initialValue, _limitValue)
     .then((pokemons) { 

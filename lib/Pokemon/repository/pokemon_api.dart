@@ -79,7 +79,7 @@ class PokemonApi {
       name: json['name'],
       weight: double.parse(json["weight"].toString()),
       height: double.parse(json['height'].toString()),
-      photoUrl: json['sprites']['front_default'],
+      photoUrl: json['sprites']['other']['official-artwork']['front_default'],
       types: pokemonTypes.map((elementMap) {
         String url = elementMap['type']['url'].toString();
         int endIndex = url.lastIndexOf('/');   
